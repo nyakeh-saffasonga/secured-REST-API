@@ -1,0 +1,35 @@
+{
+  "name": "secured-rest-api",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyakeh-saffasonga/secured-REST-API.git"
+  },
+  "keywords": [],
+  "author": "Nyakeh_SaffaSonga <nsaffa682@west-mec.org> (https://github.com/nyakeh-saffasonga)",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nyakeh-saffasonga/secured-REST-API/issues"
+  },
+  "homepage": "https://github.com/nyakeh-saffasonga/secured-REST-API#readme",
+  "dependencies": {
+    "dotenv": "^18.0.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.1"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
+  }
+}

@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "name": "Tower of Subliminal Abstraction",
+        "acronym": "ToSA",
+        "creators": ["NyakehTheBest"],
+        "towerType": "Tower",
+        "floorCount": 10,
+        "warnings": ["WIP", "Wall Hopping Required"],
+        "decimalDifficulty": 10.68,
+        "subDifficulty": "High",
+        "difficulty": "Terrifying",
+        "location": ["Tower Creator", "1142891990#6"],
+        "picture": ""
+    },
+    {
+        "id": 2,
+        "name": "Tower of Isoprophl-X",
+        "acronym": "ToIX",
+        "creators": ["Livingonmycouch", "Yellow78Dog"],
+        "towerType": "Tower",
+        "floorCount": 10,
+        "warnings": ["LOOPFAILY"],
+        "decimalDifficulty": 11.00,
+        "subDifficulty": "Baseline",
+        "difficulty": "Catastrophic",
+        "location": ["The Eternal Abyss", "Starry Night"],
+        "picture": ""
+    },
+    {
+        "id": 3,
+        "name": "Tower of Complexity and Volatility",
+        "acronym": "ToCaV",
+        "creators": ["Miantoz1980", "godmothersfir_e", "ConfirmedIlluminatix"],
+        "towerType": "Tower",
+        "floorCount": 10,
+        "warnings": ["EPILEPSY WARNING"],
+        "decimalDifficulty": 10.15,
+        "subDifficulty": "Bottom-Low",
+        "difficulty": "Terrifying",
+        "location": ["Eternal Towers of Hell", "Zone 10"],
+        "picture": ""
+    },
+    {
+        "id": 4,
+        "name": "Tower of Circuits and Lasers",
+        "acronym": "ToCaL",
+        "creators": ["Cataphorian"],
+        "towerType": "Tower",
+        "floorCount": 10,
+        "warnings": ["Wall Hopping Required"],
+        "decimalDifficulty": 9.05,
+        "subDifficulty": "Bottom",
+        "difficulty": "Extreme",
+        "location": ["Caleb's Soul Crushing Domain", "Scope 1"],
+        "picture": ""
+    },
+    {
+        "id": 5,
+        "name": "Tower Tower Tower Tower",
+        "acronym": "TTTT",
+        "creators": ["aamo_s", "Glubort"],
+        "towerType": "Tower",
+        "floorCount": 10,
+        "warnings": ["PUNISHING"],
+        "decimalDifficulty": 8.83,
+        "subDifficulty": "High-Peak",
+        "difficulty": "Insane",
+        "location": ["The Eternal Abyss", "Main Area"],
+        "picture": ""
+    }
+]

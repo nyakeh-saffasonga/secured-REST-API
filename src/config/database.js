@@ -47,14 +47,14 @@ async function connectDatabase(uri = mongoUri) {
         process.exit(1)
         
     }
+}
 
-    async function disconnectDatabase() {
-        await mongoose.connection.close()
-    }
+async function disconnectDatabase() {
+    await mongoose.connection.close()
+}
 
-    function isConnected() {
-        return mongoose.connection.readyState === 1
-    }
+function isConnected() {
+    return mongoose.connection.readyState === 1
 }
 
 module.exports = { connectDatabase, disconnectDatabase, isConnected }

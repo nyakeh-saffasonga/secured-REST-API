@@ -1,0 +1,176 @@
+{
+  "info": {
+    "_postman_id": "97b87044-4d4a-45c2-9628-dee048c571d1",
+    "name": "EToH (Secured REST) API - v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57106527",
+    "_collection_link": "https://go.postman.co/collection/57106527-97b87044-4d4a-45c2-9628-dee048c571d1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5500/api/v1/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5500",
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Towers - Happy Path",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Tower of Subliminal Abstraction\",\r\n    \"acronym\": \"ToSA\",\r\n    \"creators\": [\"NyakehTheBest\"],\r\n    \"towerType\": \"Tower\",\r\n    \"floorCount\": 10,\r\n    \"warnings\": [\"WIP\", \"Wall Hopping Required\"],\r\n    \"decimalDifficulty\": 10.68,\r\n    \"subDifficulty\": \"High\",\r\n    \"difficulty\": \"Terrifying\",\r\n    \"location\": [\"Tower Creator\", \"1142891990#6\"],\r\n    \"picture\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5500/api/v1/towers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5500",
+              "path": [
+                "api",
+                "v1",
+                "towers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Towers - Error Cases",
+      "item": [
+        {
+          "name": "Nonexistent ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Malformed ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Missing Required Field",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Value",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unknown Route",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

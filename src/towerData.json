@@ -68,5 +68,18 @@
         "difficulty": "Insane",
         "location": ["The Eternal Abyss", "Main Area"],
         "picture": ""
+    },
+    {
+        "id": 6,
+        "name": "Tower of Verity Phonk Ultimate",
+        "acronym": "ToVPU",
+        "creators": ["MANGOLORD67"],
+        "towerType": "Tower",
+        "warnings": [],
+        "decimalDifficulty": 14.67,
+        "subDifficulty": "High",
+        "difficulty": "nil",
+        "location": ["Skibidi Castle"],
+        "picture": ""
     }
 ]

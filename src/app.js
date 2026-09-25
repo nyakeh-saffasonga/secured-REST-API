@@ -1,7 +1,28 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const app = express()
+app.use(express.json())
 
 // remember that the SCHEMA is the blueprint for a record in the database and is used to validate new record data before the record is created
+
+const towerSchema = new mongoose.Schema({
+    id: {type: Number, required: true},
+    name: {type: String, required: true},
+    acronym: {type: String, required: true /* default: findTowerAcronym(this.name) */},
+    creators: {type: [String], required: true},
+    towerType: {type: String, required: true},
+    floorCount: {type: Number},
+    warnings: {type: [String]},
+    decimalDifficulty: {type: Number, required: true},
+    subDifficulty: {type: String, required: true /* default: findDefaultDifficulty(this.decimalDifficulty, "subDifficulty") */},
+    difficulty:{type: String, required: true /* default: findDefaultDifficulty(this.decimalDifficulty, "difficulty") */},
+    location: {type: [String], required: true},
+    picture: {type: String, default: ""}
+}, {timestamps: true})
+
+const Tower = mongoose.model("Tower", towerSchema)
+
+let nextID = 0
 
 
 
@@ -48,7 +69,7 @@ function findTowerAcronym(name) {
     return name.match(/(?<=^|[^a-zA-Z0-9])[a-zA-Z0-9]/g)?.join('')
 }
 
-function findTowerType(floorCount, isMiniTower) {
+function findTowerType(floorCount, isMiniTower = false) {
     if(isMiniTower) return "Mini Tower"
     if (floorCount >= 100) return "Great Citadel"
     if (floorCount >= 30) return "Obelisk"
@@ -64,107 +85,39 @@ function findTowerType(floorCount, isMiniTower) {
 
 
 
-const towerSchema = new mongoose.Schema({
-    id: {type: Number, required: true},
-    name: {type: String, required: true},
-    acronym: {type: String, required: true /* default: findTowerAcronym(this.name) */},
-    creators: {type: [String], required: true},
-    towerType: {type: String, required: true},
-    floorCount: {type: Number},
-    warnings: {type: [String]},
-    decimalDifficulty: {type: Number, required: true},
-    subDifficulty: {type: String, required: true /* default: findDefaultDifficulty(this.decimalDifficulty, "subDifficulty") */},
-    difficulty:{type: String, required: true /* default: findDefaultDifficulty(this.decimalDifficulty, "difficulty") */},
-    location: {type: String, required: true},
-    picture: {type: [String], default: ""}
-}, {timestamps: true})
-
-const Tower = mongoose.model("Tower", towerSchema)
-
-const app = express()
-app.use(express.json()) // what was missing
-
-// let towerList = JSON.parse(fs.readFileSync('towerData.json', 'utf8'));
-let nextID = 6
-
-app.get('/health', (req, res)=>{
-    res.status(200).json({status: 'ok'})
-})
-
 // CRUD Responses: CRUD stands for create, read, update, delete
-app.get('/towers', async (req, res)=>{
+app.get('/api/v1/towers', async (req, res)=>{
     const towers = await Tower.find({})
-    // the above async request uses the mongoose find functions and returns all record that use the Plant model
     res.status(200).json(towers)
-    // responds back with all plants in the "database" in the form on a JSON
 })
 
-app.get('/towers/:id', async (req, res)=>{
+app.get('/api/v1/towers/:id', async (req, res)=>{
     try {
         // requires a parameter that is in the URL segment, express captures this with :id
-        const tower = await Tower.find({id:Number(req.params.id)});
+        const tower = await Tower.find({id: Number(req.params.id)});
         // uses ID parameter to search database for the object with the same ID
-        if(!tower) {
-            return res.status(404).json({error: 'Tower not found'})
-            // if the plant is not found using the plant variable this conditional will respond
-        }
-        res.status(200).json(plant)
+        if(!tower) return res.status(404).json({error: 'Tower not found'})
+        res.status(200).json({"success": true, "data": {tower}})
         // if it does exist the respond back with a good status and specific plant data
     } catch (error) {
         res.status(500).json({error: 'Tower not found'})
     }
 })
 
-// WATERED -- 200 OR 500
+// CREATE -- 201
+app.post('/api/v1/towers', async (req, res)=>{
+    const tower = await Tower.create({id:String(nextID++), ...req.body})
+    res.status(201).json({"success": true, "data": {tower}})
+})
 
 /*
-
-app.post('/towers/:id/water', async (req,res)=>{
-    // run this route when the plant has been watered to update the database
-    try {
-        const plant = await Plant.findOne({id:Number(req.params.id)})
-        if(!plant) return res.status(404).json({error: 'Plant not found'})
-
-        if (plant.status === 'retired') {
-            return res.status(409).json({error: 'Cannot water retired plants'})
-        }
-        plant.lastWateredAt = new Date()
-        plant.status = "healthy"
-        await plant.save()
-
-        res.status(200).json(plant)
-    } catch (error) {
-        res.status(500).json({error:error.message})
-        
-    }
-})
-
+    INSERT PUT HERE
 */
 
-// CREATE -- 201
-app.post('/towers', async (req, res)=>{
-    const tower = await Tower.create({id:String(nextID++), ...req.body})
-    res.status(201).json(tower)
-    // try {
-    //     const plant = await Plant.findById(req.params.id)
-    //     if (!plant) return res.status(404).json({error: 'Plant not found'})
-    //     if (plant.status === 'retired') {
-    //         return res.status(409).json({error: 'Cannot water retired plants'})
-    //     }
-    //     // if the plant does exist and the plant isnt retired then the code beloe executes
-    //     plant.lastWateredAt = new Date()
-    //     plant.status = 'healthy'
-    //     await plant.save()
-    //     // above is the function that uses the mongoose connectiom
-    // } catch (error) {
-        
-    // }
-})
-
 // UPDATE - 200 or 404
-app.patch('/towers/:id', async (req, res)=>{
+app.patch('/api/v1/towers/:id', async (req, res)=>{
     try {
-         const tower = await Tower.find({id:Number(req.params.id)});
+        const tower = await Tower.find({id:Number(req.params.id)});
         // find specific plant method
         if(!tower) return res.status(404).json({error: 'Tower not found'})
         // if plant not found respond with 404
@@ -172,15 +125,15 @@ app.patch('/towers/:id', async (req, res)=>{
         // update plant data from req.body
         // this update is with the mindset that all daa from req.body fulfills plant requirements
         tower.save()
-        res.status(200).json(tower)
+        res.status(200).json({"success": true, "data": {tower}})
         // respond with new plant data from database
     } catch (error) {
-        res.status(500).json({error:error.message})
+        res.status(500).json({error: error.message})
     }
 })
 
 // DELETE -- 204
-app.delete('/towers/:id', async (req,res)=>{
+app.delete('/api/v1/towers/:id', async (req,res)=>{
     const tower = Tower.findOneAndDelete({id:req.params.id}).exec()
     if(!tower) return res.status(404).json({error: 'Tower not found'})
     // if find does not find a record it returns -1 which means record not found, respond with 404
@@ -188,6 +141,10 @@ app.delete('/towers/:id', async (req,res)=>{
     // remove the record form the database 
     res.status(204).send()
     // confirm removal of the record
+})
+
+app.get('/api/v1/health', (req, res)=>{
+    res.status(200).json({status: 'ok'})
 })
 
 module.exports = app

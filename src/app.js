@@ -123,7 +123,7 @@ app.patch('/api/v1/towers/:id', async (req, res)=>{
         // if plant not found respond with 404
         // Object.assign(plant, req.body)
         // update plant data from req.body
-        // this update is with the mindset that all daa from req.body fulfills plant requirements
+        // this update is with the mindset that all data from req.body fulfills plant requirements
         tower.save()
         res.status(200).json({"success": true, "data": {tower}})
         // respond with new plant data from database

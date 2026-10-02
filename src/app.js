@@ -3,6 +3,12 @@ const mongoose = require('mongoose')
 const app = express()
 app.use(express.json())
 
+const body = pm.response.json()
+pm.collectionVariables.set(
+    "resourceId",
+    body.data.id
+);
+
 // remember that the SCHEMA is the blueprint for a record in the database and is used to validate new record data before the record is created
 
 const towerSchema = new mongoose.Schema({
@@ -17,7 +23,7 @@ const towerSchema = new mongoose.Schema({
     subDifficulty: {type: String, required: true /* default: findDefaultDifficulty(this.decimalDifficulty, "subDifficulty") */},
     difficulty:{type: String, required: true /* default: findDefaultDifficulty(this.decimalDifficulty, "difficulty") */},
     location: {type: [String], required: true},
-    picture: {type: String, default: ""}
+    picture: {type: String, default: ""},
 }, {timestamps: true})
 
 const Tower = mongoose.model("Tower", towerSchema)
@@ -114,10 +120,27 @@ app.post('/api/v1/towers', async (req, res)=>{
     INSERT PUT HERE
 */
 
+app.put('/api/v1/towers/:id', async (req, res) =>{
+    try {
+        const tower = await Tower.findOne({id:Number(req.params.id)});
+        // find specific plant method
+        if(!tower) return res.status(404).json({error: 'Tower not found'})
+        // if plant not found respond with 404
+        Object.assign(tower, req.body)
+        // update plant data from req.body
+        // this update is with the mindset that all data from req.body fulfills plant requirements
+        await tower.save()
+        res.status(200).json({"success": true, "data": {tower}})
+        // respond with new plant data from database
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
 // UPDATE - 200 or 404
 app.patch('/api/v1/towers/:id', async (req, res)=>{
     try {
-        const tower = await Tower.find({id:Number(req.params.id)});
+        const tower = await Tower.findOne({id:Number(req.params.id)});
         // find specific plant method
         if(!tower) return res.status(404).json({error: 'Tower not found'})
         // if plant not found respond with 404

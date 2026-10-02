@@ -172,5 +172,15 @@
         }
       ]
     }
+  ],
+  "variable": [
+    {
+      "key": "{{baseUrl}}",
+      "value": ""
+    },
+    {
+      "key": "{{resourceId}}",
+      "value": ""
+    }
   ]
 }

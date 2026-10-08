@@ -39,24 +39,7 @@ const createTower = asyncHandler(async(req, res) => {
 const getTowerById = asyncHandler(async(req, res) => {
     const tower = await Tower.findById(req.params.id)
     if (!tower) throw ApiError.notFound('Tower not found')
-    return tower
-})
-
-// GET /api/v1/towers/stats
-
-const towerStats = asyncHandler(async(req, res) => {
-    const [total, grouped, all] = await Promise.all([
-        Tower.countDocuments(),
-        Tower.aggregate([{$group: {_id: '$status', count: { $sum: 1}}}]),
-        Tower.find({status: {$ne: PLANT_STATUS.RETIRED}})
-    ])
-
-    const byStatus = grouped.reduce((acc, row) => ({
-        ...acc, [row._id]: row.count
-    }), {})
-
-    const overdue = all.filter((tower) => tower.isOverdue).length
-    sendCreated(res, {total, byStatus, overdue})
+    return res.status(200).json({success: true, data: tower})
 })
 
 // PUT + PATCH /api/v1/towers/:id
@@ -67,6 +50,7 @@ const updateTower = asyncHandler(async(req, res) => {
         runValidators: true
     })
     if (!tower) throw ApiError.notFound('Tower not found')
+    sendSuccess(res, tower)
 })
 
 // DELETE /api/v1/towers/:id
@@ -75,11 +59,11 @@ const removeTower = asyncHandler(async(req, res) => {
     const tower = await Tower.findById(req.params.id)
     if (!tower) throw ApiError.notFound('Tower not found')
     await Tower.findByIdAndDelete(req.params.id)
-    sendNoContent(req, tower)
+    sendNoContent(res, tower)
 })
 
 
-module.exports = {getAllTowers, createTower, getTowerById, updateTower, removeTower, towerStats}
+module.exports = {getAllTowers, createTower, getTowerById, updateTower, removeTower}
 
 
 

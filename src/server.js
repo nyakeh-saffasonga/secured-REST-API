@@ -13,6 +13,7 @@ async function start() {
  */
 
     const shutdown = (signal) => {
+        
         console.og(`\n${signal} recieved, shuttingdown`)
 
         const force = setTimeout(() => {
@@ -30,7 +31,6 @@ async function start() {
 
         process.on('SIGTERM', ()=> shutdown('SIGTERM')) // significant term
         process.on('SIGINT', ()=> shutdown('SIGINT')) // and significant integer (or number)
-
 
     }
 

@@ -6,6 +6,10 @@ const DIFFICULTIES = Object.freeze([
     "Insane", "Extreme", "Terrifying", "Catastrophic", "Horrific", "Unreal", "nil"
 ])
 
+const TOWER_TYPES = Object.freeze([
+
+])
+
 // const PLANT_STATUSES = Object.freeze(Object.values(PLANT_STATUS))
 
 const SORTABLE_FIELDS = Object.freeze([

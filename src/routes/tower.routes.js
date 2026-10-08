@@ -5,7 +5,7 @@ const towerController = require('../controllers/tower.controller')
 
 const router = express.Router()
 
-router.get('/stats', towerController.towerStats)
+// router.get('/stats', towerController.towerStats)
 
 router
     .route('/')

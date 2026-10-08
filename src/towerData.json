@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "name": "Tower of Subliminal Abstraction",
         "acronym": "ToSA",
         "creators": ["NyakehTheBest"],
@@ -14,7 +13,6 @@
         "picture": ""
     },
     {
-        "id": 2,
         "name": "Tower of Isoprophl-X",
         "acronym": "ToIX",
         "creators": ["Livingonmycouch", "Yellow78Dog"],
@@ -28,7 +26,6 @@
         "picture": ""
     },
     {
-        "id": 3,
         "name": "Tower of Complexity and Volatility",
         "acronym": "ToCaV",
         "creators": ["Miantoz1980", "godmothersfir_e", "ConfirmedIlluminatix"],
@@ -42,7 +39,6 @@
         "picture": ""
     },
     {
-        "id": 4,
         "name": "Tower of Circuits and Lasers",
         "acronym": "ToCaL",
         "creators": ["Cataphorian"],
@@ -56,7 +52,6 @@
         "picture": ""
     },
     {
-        "id": 5,
         "name": "Tower Tower Tower Tower",
         "acronym": "TTTT",
         "creators": ["aamo_s", "Glubort"],
@@ -70,7 +65,6 @@
         "picture": ""
     },
     {
-        "id": 6,
         "name": "Tower of Verity Phonk Ultimate",
         "acronym": "ToVPU",
         "creators": ["MANGOLORD67"],

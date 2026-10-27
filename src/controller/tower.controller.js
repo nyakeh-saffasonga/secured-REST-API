@@ -1,10 +1,10 @@
 'use strict'
 
 const asyncHandler = require('../utils/asyncHandler')
-const {sendSuccess, sendCreated, sendNoContent} = require('../utils/apiResponse')
+const {sendSuccess, sendCreate, sendNoContent} = require('../utils/apiResponse')
 const Tower = require('../models/tower.model')
 const ApiError = require('../utils/ApiError')
-const {PLANT_STATUS} = require('../config/constants')
+const {parsePagination, parseSort, buildMeta, buildTowerFilter} = require('../utils/queryFeatures')
 
 //const {parsePagination, parseSort, buildMeta}
 
@@ -18,20 +18,43 @@ const {PLANT_STATUS} = require('../config/constants')
 
 // GET /api/v1/
 
-const getAllTowers = asyncHandler(async(req, res) => {
-    try {
-        const towers = await Tower.find({})
-        return res.status(200).json({success: true, data: towers})
-    } catch (err) {
-        res.status(500).json({success: false, error: err})
+const WRITABLE_FEILDS = ["name", "floorCount", "towerType", "warnings", "decimalDifficulty", "location", "picture"]
+// notice that the ownerId was not included and should not allow the user to change or manipulate the field
+
+function pickWritableFeilds(body={}) {
+    const payload = {}
+    for (const field of WRITABLE_FEILDS) {
+        if(body[field] !== undefined) payload[field] = body[field]
     }
+    return payload
+}
+
+const getAllTowers = asyncHandler(async(req, res) => {
+    const filter = buildTowerFilter(req.query)
+    const sort = parseSort(req.query.sort)
+    const {page, limit, skip} = parsePagination(req.query)
+
+    /** 2 queries run together rather than one after the other.
+     * the page of the recrds and the total number of matches the client needs to know how many pages will exist.
+     * countDocuments  will use the same filter so the count describes the filtered set, not the whole collection */
+    const [tower, total] = await Promise.all([
+        await Tower.find(filter).sort(sort).skip(skip).limit(limit),
+        Tower.countDocuments(filter)
+    ])
+
+    /** the metadata will go along with the sendSuccess argument so the response 
+     * will be {succcess, data, meta} and the single record response will keep the old structre without meta  */
+    sendSuccess(res, tower, 200, {meta: buildMeta({page, limit, total})})
 })
 
 // POST /api/v1/towers/
 
 const createTower = asyncHandler(async(req, res) => {
-    const tower = await Tower.create(req.body)
-    sendCreated(res, tower)
+    console.log(req.body)
+    const tower = await Tower.create({
+        ...pickWritableFeilds(req.body),
+        ownerId: req.user._id // using the mongoDB id --> _id
+    })
 })
 
 // GET /api/v1/:id

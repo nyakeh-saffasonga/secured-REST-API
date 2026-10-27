@@ -17,7 +17,7 @@ function sendSuccess(res, data, statusCode = 200, extra = {}) {
 }
 
 // whenever a record is created
-function sendCreated(res, data) {
+function sendCreate(res, data) {
     return sendSuccess(res, data, 201)
 }
 
@@ -26,6 +26,6 @@ function sendNoContent(res) {
     return res.status(204).send()
 }
 
-module.exports = {sendSuccess, sendCreated, sendNoContent}
+module.exports = {sendSuccess, sendCreate, sendNoContent}
 
 /** remember that this is to wrap the request in an "envelope" that we make and control allowing use to make and use one parser to deal with all types of requests instead of the defaults set by express */

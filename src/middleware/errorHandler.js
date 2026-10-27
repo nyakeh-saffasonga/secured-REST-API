@@ -63,4 +63,5 @@ module.exports = function errorHandler(err, req, res, next) {
             ...(isProduction && statusCode >= 500 && {stack: err.stack})
         }
     })
+
 }

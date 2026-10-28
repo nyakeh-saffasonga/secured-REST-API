@@ -21,12 +21,7 @@ const register = asyncHandler(async(req,res) =>{
     /** */
     const user = await User.create({name, email, password})
 
-    sendCreate(res, {user, token:signToken(User)})
-
-
-
-
-
+    sendCreate(res, {user, token: signToken(user)})
 })
 
 const login = asyncHandler(async(req,res) =>{

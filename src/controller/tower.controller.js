@@ -55,6 +55,7 @@ const createTower = asyncHandler(async(req, res) => {
         ...pickWritableFeilds(req.body),
         ownerId: req.user._id // using the mongoDB id --> _id
     })
+    return sendCreate(res, tower)
 })
 
 // GET /api/v1/:id

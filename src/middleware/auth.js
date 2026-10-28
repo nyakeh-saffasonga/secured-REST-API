@@ -24,12 +24,12 @@ const requireAuth = asyncHandler(async(req, res, next)=>{
    
     const header = req.get('authorization')
 
-    if(!header.startsWith(AUTH.BEARER_PREFIX)){
+    if(!header || !header.startsWith(AUTH.BEARER_PREFIX)){
         throw ApiError.unauthorized('Missing or malformed Authorization header')
     }
 
     const token = header.slice(AUTH.BEARER_PREFIX.length).trim()
-    if (!token) throw ApiError.unauthorized('Missing ot malformed Authorization header')
+    if (!token) throw ApiError.unauthorized('Missing or malformed Authorization header')
         // throws 401 ApiError on forged, expired or garbage token
     const payload = verifyToken(token)
     

@@ -48,8 +48,13 @@ function findTowerType(floorCount, isMiniTower = false) {
     if (floorCount == 1) return "Room/Box"
 }
 
-function valueFiller(requestBody) {
+function valueFiller(req) {
 
+    let name = req.name
+    let acronym = findTowerAcronym(name)
+    let creators = req.creators
+    let floorCount = req.floorCount
+    let towerType = 
     
     
 }

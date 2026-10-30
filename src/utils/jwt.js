@@ -28,7 +28,7 @@ function signToken(user) {
      * is the only thing worth carrying in. we will worry about roles later when we do permission checks
      */
     console.log("sign---"+user.id)
-    const payload = {sub: String(user._id), role: user.role}
+    const payload = {sub: String(user.id), role: user.role}
     return jwt.sign(payload, jwtSecret, {expiresIn: jwtExpiresIn})
 }
 

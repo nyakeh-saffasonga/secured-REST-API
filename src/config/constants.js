@@ -35,7 +35,7 @@ const AUTH = Object.freeze({
     // in how long it will take for the authorization to complete, meaning that maving too many salt rounds
     // is not the best for application performance
     DEFAULT_JWT_EXPIRES_IN: '30d',
-    BEARER_PREFIX: 'Bearer'
+    BEARER_PREFIX: 'Bearer '
 })
 
 const DEFAULT_SORT = Object.freeze({createdAt: -1})

@@ -50,7 +50,7 @@ const getAllTowers = asyncHandler(async(req, res) => {
 // POST /api/v1/towers/
 
 const createTower = asyncHandler(async(req, res) => {
-    console.log(req.body)
+    console.log(req.user)
     const tower = await Tower.create({
         ...pickWritableFeilds(req.body),
         ownerId: req.user._id // using the mongoDB id --> _id

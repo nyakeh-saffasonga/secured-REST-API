@@ -11,9 +11,7 @@ const towerSchema = new mongoose.Schema({
     },
 
     acronym: {
-        type: String, 
-        required: true
-        /* default: findTowerAcronym(this.name) */
+        type: String
     },
 
     creators: {
@@ -21,15 +19,14 @@ const towerSchema = new mongoose.Schema({
         required: true
     },
 
-    towerType: {
-        type: String, 
-        required: true,
-        enum: {values: TOWER_TYPES, message: `{VALUE} is not a valid towerType.`}
+    floorCount: {
+        type: Number,
+        required: true
     },
 
-    floorCount: {
-        type: Number
-
+    towerType: {
+        type: String, 
+        enum: {values: TOWER_TYPES, message: `{VALUE} is not a valid towerType.`}
     },
 
     warnings: {
@@ -37,21 +34,19 @@ const towerSchema = new mongoose.Schema({
     },
 
     decimalDifficulty: {
-        type: Number, 
+        type: Number,
         required: true
 
     },
 
     subDifficulty: {
         type: String, 
-        required: true, 
         enum: {values: SUB_DIFFICULTIES, message: `{VALUE} is not a valid subDifficulty.`} 
         /* default: findDefaultDifficulty(this.decimalDifficulty, "subDifficulty") */
     },
 
     difficulty:{
         type: String, 
-        required: true,
         enum: {values: DIFFICULTIES, message: `{VALUE} is not a valid difficulty.`} 
         /* default: findDefaultDifficulty(this.decimalDifficulty, "difficulty") */
 
@@ -63,8 +58,17 @@ const towerSchema = new mongoose.Schema({
     },
 
     picture: {
-        type: String, 
-        default: ""
+        type: String,
+        required: true,
+        default: "",
+    },
+
+    ownerId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        default:null,
+        index:true,
+        // this indexing is to allow for fatser records searching
     },
 
 }, {

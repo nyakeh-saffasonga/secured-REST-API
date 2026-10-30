@@ -24,9 +24,6 @@ app.use(express.urlencoded({extended: true, limit: '10kb'}))
 // routing for pathways 
 app.use('/health', healthRoutes)
 app.use(API_PREFIX, routes)
-app.get('/',(req,res)=>{
-    res.status(200).json({success:true, status:"Healthy"})
-})
 
 app.use(notFound)
 app.use(errorHandler)
